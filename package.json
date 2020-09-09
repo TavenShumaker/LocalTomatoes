@@ -1,0 +1,41 @@
+{
+  "name": "solo-project",
+  "version": "1.0.0",
+  "description": "Local-Tomatoes App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node server/server.js",
+    "dev": "NODE_ENV=development webpack-dev-server --open",
+    "build": "NODE_ENV=production webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TavenShumaker/Solo-Project.git"
+  },
+  "author": "Taven Shumaker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TavenShumaker/Solo-Project/issues"
+  },
+  "homepage": "https://github.com/TavenShumaker/Solo-Project#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "path": "^0.12.7",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "webpack": "^4.44.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.3.0",
+    "style-loader": "^1.2.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}
