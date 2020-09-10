@@ -26,6 +26,11 @@ module.exports = {
     ],
   },
   devServer: {
-    publicPath: 'http://localhost:8080/build/'
+    // port: 8080,
+    publicPath: '/build',
+    contentBase: path.resolve(__dirname, 'client/'),
+    proxy: {
+      '/markets': 'http://localhost:3000',
+    },
   }
 }

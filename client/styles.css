@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Ubuntu Light', 'Century Gothic', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #393939;
+}
+
+html, body, #root, #root>div {
+  height: 100%
+}
+
+body {
+  padding-top: 4em;
+}
+
+.mainContainer{
+  width: 94%;
+  height: 95%;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: tomato;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.inputsBox{
+  width: 400px;
+  height: 28%;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.marketsBox{
+  width: 75%;
+  height: 68%;
+  background-color: lightgrey;
+}
