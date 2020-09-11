@@ -1,11 +1,36 @@
 import * as types from '../constants/actionTypes';
 
+const dummyMarket = {
+  name: '',
+  address: '',
+  distance: '',
+  days: [],
+  times: [],
+}
+
 const initialState = {
   marketsList: [],
   todaysMarkets: [],
   range: '5',
   zip: '',
+  currentCard: dummyMarket,
+  focus: 'markets',
 }
+
+const date = new Date();
+console.log('logging date from date', date);
+const day = date.getDay();
+console.log('logging day from date', day);
+let today = '';
+if(day === 0) today = 'Sun';
+if(day === 1) today = 'Mon';
+if(day === 2) today = 'Tue';
+if(day === 3) today = 'Wed';
+if(day === 4) today = 'Thu';
+if(day === 5) today = 'Fri';
+if(day === 6) today = 'Sat';
+
+console.log("logging today, a string", today)
 
 //4.0 Larchmont Village Farmers Market
 //01/01/2015 to 12/31/2015 Fri: 3:00 PM-7:30 PM;<br> <br> <br> 
@@ -24,10 +49,9 @@ const parseSchedule = (schedule, market) => {
   market.times = [];
   market.dateTime = schedule.slice(25, -15)
   market.datesArr = market.dateTime.split(';');
-  for(let i = 0; i < market.datesArr.length; i++){
-    market.eventArr = market.datesArr[i].split(':');
-    // market.days.push(eventArr[0]);
-    // market.times.push(eventArr[1].slice(0));
+  for(let i = 0; i < market.datesArr.length - 1; i++){
+    market.days.push(market.datesArr[i].slice(0, 3));
+    market.times.push(market.datesArr[i].slice(5));
   }
 }
 
@@ -46,10 +70,40 @@ const marketsReducer = (state = initialState, action) => {
         range: action.payload,
       };
 
+    case types.UPDATE_FOCUS:
+      const focus = action.payload;
+      let focusMarket = {}
+      if(action.payload === 'today'){
+        focusMarket = {...state.todaysMarkets[0]}
+      }
+      else{
+        focusMarket = {...state.marketsList[0]}
+      }
+      return{
+        ...state,
+        focus: focus,
+        currentCard: focusMarket,
+      }
+
+    case types.UPDATE_CARD:
+      console.log('entered reducer', action.payload);
+      let cardCopy = {
+        ...action.payload,
+        days: action.payload.days.slice(),
+        times: action.payload.times.slice(),
+      }
+      console.log("entered reducer: ", cardCopy);
+      return{
+        ...state,
+        currentCard: cardCopy,
+      };
+
+
     case types.GET_MARKETS:
       console.log("PAYLOAD: ", action.payload);
 
       const marketsList = [];
+      const todayList = [];
 
       for(let i = 0; i < action.payload.length; i++){
         let market = {}
@@ -60,11 +114,24 @@ const marketsReducer = (state = initialState, action) => {
         if(!market.remove) marketsList.push(market);
       }
 
-      console.log(marketsList);
+
+      for(let i = 0; i < marketsList.length; i++){
+        if(marketsList[i].days.includes(today)){
+          todayList.push(marketsList[i]);
+        }
+      }
+
+      const currentCard = {
+        ...marketsList[0],
+        days: marketsList[0].days.slice(),
+        times: marketsList[0].times.slice(),
+      };
 
       return{
         ...state,
-        marketList: marketsList,
+        todaysMarkets: todayList,
+        marketsList: marketsList,
+        currentCard: currentCard,
       };
     
     default:

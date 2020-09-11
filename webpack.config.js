@@ -23,6 +23,14 @@ module.exports = {
           'css-loader',
         ],
       },
+      {
+        test: /\.jpg$/,
+        use: "url-loader",
+      },
+      {
+        test: /\.jpg$/,
+        use: 'file-loader'
+      },
     ],
   },
   devServer: {
